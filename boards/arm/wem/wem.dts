@@ -1,0 +1,31 @@
+/dts-v1/;
+#include <nordic/nrf52840_qiaa.dtsi>
+
+/ {
+    model = "My ZMK Mouse";
+    compatible = "zmk,my-mouse";
+
+    chosen {
+        zephyr,flash = &flash0;
+        zephyr,sram = &sram0;
+        zephyr,code-partition = &slot0_partition;
+    };
+};
+
+&flash0 {
+    partitions {
+        compatible = "fixed-partitions";
+        #address-cells = <1>;
+        #size-cells = <1>;
+
+        slot0_partition: partition@0 {
+            label = "image-0";
+            reg = <0x00000000 0x000F0000>;
+        };
+
+        storage_partition: partition@f0000 {
+            label = "storage";
+            reg = <0x000F0000 0x00010000>;
+        };
+    };
+};
