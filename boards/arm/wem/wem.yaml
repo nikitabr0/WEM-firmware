@@ -1,5 +1,7 @@
 identifier: wem
 name: WEM
+socs:
+  - name: nrf52840
 type: mcu
 arch: arm
 toolchain:
