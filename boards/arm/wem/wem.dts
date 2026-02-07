@@ -1,5 +1,8 @@
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
 
 / {
     model = "My ZMK Mouse";
@@ -62,7 +65,7 @@
         compatible = "zmk,keymap";
 
         default_layer {
-            bindings = <&kp A>;
+            bindings = < &kp F13 >;
         };
     };
 };
