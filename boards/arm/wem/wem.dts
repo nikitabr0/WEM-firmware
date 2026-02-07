@@ -62,7 +62,7 @@
         compatible = "zmk,keymap";
 
         default_layer {
-            bindings = <&kp KP_F13>;
+            bindings = <&kp A>;
         };
     };
 };
