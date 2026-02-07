@@ -10,6 +10,61 @@
         zephyr,sram = &sram0;
         zephyr,code-partition = &slot0_partition;
     };
+    
+    zmk_mouse {
+        compatible = "zmk,mouse";
+
+        buttons {
+            compatible = "zmk,mouse-buttons";
+
+            lmb {
+                gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
+                button = <1>;
+                label = "LMB";
+            };
+
+            mmb {
+                gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
+                button = <3>;
+                label = "MMB";
+            };
+
+            rmb {
+                gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
+                button = <2>;
+                label = "RMB";
+            };
+
+            back {
+                gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
+                button = <4>;
+                label = "BACK";
+            };
+
+            forward {
+                gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
+                button = <5>;
+                label = "FORWARD";
+            };
+        };
+    };
+
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        label = "KSCAN_DIRECT";
+
+        input-gpios = <
+            &gpio0 12 GPIO_ACTIVE_LOW
+        >;
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = < &kp F13 >;
+        };
+    };
 };
 
 &flash0 {
