@@ -8,5 +8,4 @@
 board: ["wem"]
 include:
   - board: wem
-    shield: wem
 #    cmake-args: -DCONFIG_ZMK_STUDIO=y
