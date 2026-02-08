@@ -1,5 +1,3 @@
 config BOARD_WEM
     bool "WEM"
-    select SOC_FAMILY_NRF
-    select SOC_SERIES_NRF52X
     select SOC_NRF52840
