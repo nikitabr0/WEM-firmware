@@ -2,6 +2,8 @@ identifier: wem
 name: WEM
 type: board
 arch: arm
+socs:
+  - name: nrf52832
 toolchain:
   - zephyr
 ram: 256
