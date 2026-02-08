@@ -5,7 +5,6 @@
 # pass flags to the build command, `snippet` to add a Zephyr snippet, and
 # `artifact-name` to assign a name to distinguish build outputs from each other:
 #
-board: ["wem"]
 include:
   - board: wem
 #    cmake-args: -DCONFIG_ZMK_STUDIO=y

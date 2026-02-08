@@ -1,7 +1,31 @@
-if WEM
+# Copyright (c) 2024
+# SPDX-License-Identifier: MIT
 
-# Name must be less than 16 characters long!
+if BOARD_WEM
+
+config BOARD
+	default "wem"
+
 config ZMK_KEYBOARD_NAME
-    default "WEM"
+	default "WEM"
 
-endif
+config ZMK_USB
+	default y
+
+config ZMK_BLE
+	default y
+
+if USB_DEVICE_STACK
+
+config USB_NRFX
+	default y
+
+endif # USB_DEVICE_STACK
+
+config BT_CTLR
+	default BT
+
+config ZMK_MOUSE
+	default y
+
+endif # BOARD_WEM

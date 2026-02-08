@@ -1,80 +1,102 @@
+/*
+ * Copyright (c) 2024
+ * SPDX-License-Identifier: MIT
+ */
+
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
-
+#include <dt-bindings/zmk/matrix_transform.h>
 
 / {
-    model = "My ZMK Mouse";
-    compatible = "zmk,my-mouse";
+	model = "WEM Mouse";
+	compatible = "wem", "nordic,nrf52840-qiaa", "nordic,nrf52840";
 
-    chosen {
-        zephyr,flash = &flash0;
-        zephyr,sram = &sram0;
-        zephyr,code-partition = &slot0_partition;
-        zmk,kscan = &kscan0;
-    };
-    
-    zmk_mouse {
-        compatible = "zmk,mouse";
+	chosen {
+		zephyr,code-partition = &code_partition;
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,console = &cdc_acm_uart;
+		zmk,kscan = &kscan0;
+		zmk,underglow = &led_strip;
+	};
 
-        buttons {
-            compatible = "zmk,mouse-buttons";
+	kscan0: kscan {
+		compatible = "zmk,kscan-gpio-direct";
+		wakeup-source;
 
-            lmb {
-                gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
-                button = <1>;
-                label = "LMB";
-            };
+		input-gpios
+			= <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // LMB
+			, <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // MMB
+			, <&gpio0 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // RMB
+			, <&gpio0 28 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Back
+			, <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // Forward
+			, <&gpio0 30 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // F13
+			;
+	};
 
-            mmb {
-                gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
-                button = <3>;
-                label = "MMB";
-            };
+	vbatt: vbatt {
+		compatible = "zmk,battery-voltage-divider";
+		io-channels = <&adc 2>;
+		output-ohms = <2000000>;
+		full-ohms = <(2000000 + 806000)>;
+	};
+};
 
-            rmb {
-                gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
-                button = <2>;
-                label = "RMB";
-            };
+&adc {
+	status = "okay";
+};
 
-            back {
-                gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
-                button = <4>;
-                label = "BACK";
-            };
+&gpiote {
+	status = "okay";
+};
 
-            forward {
-                gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
-                button = <5>;
-                label = "FORWARD";
-            };
-        };
-    };
+&gpio0 {
+	status = "okay";
+};
 
-    kscan0: kscan {
-        compatible = "zmk,kscan-gpio-direct";
-        label = "KSCAN_DIRECT";
+&gpio1 {
+	status = "okay";
+};
 
-        input-gpios = <
-            &gpio0 12 GPIO_ACTIVE_LOW
-        >;
-    };
+&usbd {
+	status = "okay";
+	cdc_acm_uart: cdc_acm_uart {
+		compatible = "zephyr,cdc-acm-uart";
+	};
 };
 
 &flash0 {
-    partitions {
-        compatible = "fixed-partitions";
-        #address-cells = <1>;
-        #size-cells = <1>;
+	/*
+	 * For more information, see:
+	 * http://docs.zephyrproject.org/latest/devices/dts/flash_partitions.html
+	 */
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
 
-        slot0_partition: partition@0 {
-            label = "image-0";
-            reg = <0x00000000 0x000F0000>;
-        };
+		sd_partition: partition@0 {
+			reg = <0x00000000 0x00026000>;
+		};
+		code_partition: partition@26000 {
+			reg = <0x00026000 0x000c6000>;
+		};
 
-        storage_partition: partition@f0000 {
-            label = "storage";
-            reg = <0x000F0000 0x00010000>;
-        };
-    };
+		/*
+		 * The flash starting at 0x000ec000 and ending at
+		 * 0x000f3fff is reserved for use by the application.
+		 */
+
+		/*
+		 * Storage partition will be used by FCB/LittleFS/NVS
+		 * if enabled.
+		 */
+		storage_partition: partition@ec000 {
+			reg = <0x000ec000 0x00008000>;
+		};
+
+		boot_partition: partition@f4000 {
+			reg = <0x000f4000 0x0000c000>;
+		};
+	};
 };

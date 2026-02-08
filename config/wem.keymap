@@ -1,0 +1,21 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/mouse.h>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+        
+        default_layer {
+            bindings = <
+                &mkp LCLK    // Left mouse button
+                &mkp MCLK    // Middle mouse button
+                &mkp RCLK    // Right mouse button
+                &kp K_BACK   // Back button
+                &kp K_FORWARD // Forward button
+                &kp F13      // F13 key
+            >;
+        };
+    };
+};

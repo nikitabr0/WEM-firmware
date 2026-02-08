@@ -1,12 +1,23 @@
+# Copyright (c) 2024
+# SPDX-License-Identifier: MIT
+
 identifier: wem
 name: WEM
-type: board
+type: mcu
 arch: arm
-socs:
-  - name: nrf52832
 toolchain:
+  - gnuarmemb
+  - xtools
   - zephyr
 ram: 256
 flash: 1024
 supported:
+  - adc
+  - usb_device
   - ble
+  - ieee802154
+  - pwm
+  - watchdog
+  - gpio
+  - i2c
+  - spi
