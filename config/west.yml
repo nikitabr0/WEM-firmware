@@ -4,16 +4,11 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: ncs
-      url-base: https://github.com/nrfconnect
     # Additional modules containing boards/shields/custom code can be listed here as well
     # See https://docs.zephyrproject.org/3.2.0/develop/west/manifest.html#projects
   projects:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-    - name: sdk-nrf
-      remote: ncs
-      revision: v2.4.0
   self:
     path: config
