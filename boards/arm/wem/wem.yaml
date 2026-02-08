@@ -1,6 +1,6 @@
 identifier: wem
 name: WEM
-type: mcu
+type: board
 arch: arm
 toolchain:
   - zephyr
