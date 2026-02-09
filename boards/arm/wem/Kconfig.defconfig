@@ -7,13 +7,7 @@ config BOARD
 	default "wem"
 
 config ZMK_KEYBOARD_NAME
-	default "WEM"
-
-config ZMK_USB
-	default y
-
-config ZMK_BLE
-	default y
+	default "WEM Mouse"
 
 if USB_DEVICE_STACK
 

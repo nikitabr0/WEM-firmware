@@ -5,11 +5,10 @@
 
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
-#include <dt-bindings/zmk/matrix_transform.h>
 
 / {
 	model = "WEM Mouse";
-	compatible = "wem", "nordic,nrf52840-qiaa", "nordic,nrf52840";
+	compatible = "wem";
 
 	chosen {
 		zephyr,code-partition = &code_partition;
@@ -33,16 +32,13 @@
 			;
 	};
 
-	vbatt: vbatt {
-		compatible = "zmk,battery-voltage-divider";
-		io-channels = <&adc 2>;
-		output-ohms = <2000000>;
-		full-ohms = <(2000000 + 806000)>;
+	leds {
+		compatible = "gpio-leds";
+		blue_led: led_0 {
+			gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
+			label = "Blue LED";
+		};
 	};
-};
-
-&adc {
-	status = "okay";
 };
 
 &gpiote {
