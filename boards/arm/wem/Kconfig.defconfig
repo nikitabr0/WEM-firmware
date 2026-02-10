@@ -9,16 +9,6 @@ config BOARD
 config ZMK_KEYBOARD_NAME
 	default "WEM Mouse"
 
-if USB_DEVICE_STACK
-
-config USB_NRFX
-	default y
-
-endif # USB_DEVICE_STACK
-
-config BT_CTLR
-	default BT
-
 config ZMK_MOUSE
 	default y
 
