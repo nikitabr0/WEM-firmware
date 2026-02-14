@@ -1,6 +1,0 @@
-# Copyright (c) 2024
-# SPDX-License-Identifier: MIT
-
-config BOARD_WEM
-	bool "WEM Mouse"
-	depends on SOC_SERIES_NRF52X

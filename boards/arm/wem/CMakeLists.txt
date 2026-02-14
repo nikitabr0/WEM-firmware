@@ -1,6 +1,3 @@
-# Copyright (c) 2024
-# SPDX-License-Identifier: MIT
-
-if(CONFIG_BOARD_WEM)
-  set(OPENOCD_NRF5_SUBFAMILY "nrf52")
-endif()
+zephyr_library()
+zephyr_library_sources(pinmux.c)
+zephyr_library_include_directories(${ZEPHYR_BASE}/drivers)
