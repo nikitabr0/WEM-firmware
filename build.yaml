@@ -1,2 +1,2 @@
 include:
-  - board: wem
+  - board: nrfmicro
